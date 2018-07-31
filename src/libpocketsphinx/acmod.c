@@ -1123,6 +1123,23 @@ acmod_score(acmod_t *acmod, int *inout_frame_idx)
     if ((feat_idx = calc_feat_idx(acmod, frame_idx)) < 0)
         return NULL;
 
+    // This is the feature vector that is pushed into the search
+    for (int i = 0; i < 39; i++)
+    {
+        char buf[1000];
+        sprintf(buf, "%f,", acmod->feat_buf[feat_idx][0][i]);
+#ifdef WIN32
+        OutputDebugStringA(buf);
+#else
+        printf("%s", buf);
+#endif
+    }
+#ifdef WIN32
+    OutputDebugStringA("\n");
+#else
+    printf("\n");
+#endif
+
     /*
      * If there is an input senone file locate the appropriate frame and read
      * it.
